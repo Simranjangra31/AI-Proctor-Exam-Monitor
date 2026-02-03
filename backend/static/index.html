@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Verification - Student Exam Access</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-shield-alt"></i>
+            <span>VeriSafe ID</span>
+        </div>
+        <div class="sidebar-section">
+            <h3>Configuration</h3>
+            <div class="config-item">
+                <label>Verification Mode</label>
+                <select id="mode-select">
+                    <option>Standard (ID + Face)</option>
+                    <option disabled>Advanced (Liveness)</option>
+                </select>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <p>Made with ❤️ Like Streamlit</p>
+        </div>
+    </div>
+
+    <main class="content">
+        <header>
+            <h1>Student Identity Verification</h1>
+            <p class="subtitle">Secure access control & proctoring registration.</p>
+        </header>
+
+        <section class="main-grid">
+            <!-- Step 1: ID Card Detection -->
+            <div class="st-card" id="id-upload-card">
+                <div class="st-card-header">
+                    <i class="fas fa-id-card"></i> Step 1: PRN Verification
+                </div>
+                <div class="st-card-content">
+                    <p>Show your ID card to the camera or upload a clear photo.</p>
+
+                    <div class="toggle-container" style="max-width: 300px; margin: 0 auto 1.5rem;">
+                        <button class="toggle-btn active" id="toggle-webcam">Camera Mode</button>
+                        <button class="toggle-btn" id="toggle-upload">Upload Mode</button>
+                    </div>
+
+                    <!-- Webcam Area for ID -->
+                    <div id="id-webcam-container" class="webcam-container">
+                        <video id="id-webcam" autoplay playsinline></video>
+                        <canvas id="id-canvas" hidden></canvas>
+                        <div class="webcam-overlay" id="id-detection-status">
+                            <i class="fas fa-camera"></i> Ready for ID Detection
+                        </div>
+                    </div>
+
+                    <!-- Upload Area -->
+                    <div class="upload-area" id="drop-zone" style="display:none;">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop or Click to upload</p>
+                        <input type="file" id="id-file" accept="image/*" hidden>
+                    </div>
+
+                    <div id="id-preview-container" style="display:none; margin-top: 1rem; text-align: center;">
+                        <img id="id-preview" src="" alt="ID Preview" style="max-height: 250px; border-radius: 8px;">
+                    </div>
+
+                    <div class="btn-group" style="max-width: 300px; margin: 1.5rem auto 0;">
+                        <button class="st-button primary" id="capture-id-btn">
+                            <i class="fas fa-dot-circle"></i> Verify PRN
+                        </button>
+                        <button class="st-button primary" id="process-id-btn" style="display:none;">
+                            <i class="fas fa-sync-alt"></i> Run Detection
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Proctoring Reference Capture -->
+            <div class="st-card" id="face-match-card">
+                <div class="st-card-header">
+                    <i class="fas fa-user-check"></i> Step 2: Profile Registration
+                </div>
+                <div class="st-card-content">
+                    <p>Register your face for real-time monitor proctoring during the exam.</p>
+                    <div class="webcam-container">
+                        <video id="webcam" autoplay playsinline></video>
+                        <canvas id="canvas" hidden></canvas>
+                        <div class="webcam-overlay" id="verification-status">
+                            <i class="fas fa-lock"></i> Pending PRN Match
+                        </div>
+                    </div>
+                    <button class="st-button primary" id="capture-btn" disabled>
+                        <i class="fas fa-camera"></i> Capture Proctoring Photo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-area" class="results-container" style="display:none;">
+            <div class="st-metrics-grid">
+                <div class="st-metric">
+                    <label>PRN Number</label>
+                    <span id="res-prn">-</span>
+                </div>
+                <div class="st-metric">
+                    <label>Detection Confidence</label>
+                    <span id="res-conf">-</span>
+                </div>
+                <div class="st-metric">
+                    <label>Database Status</label>
+                    <span id="res-db-status" class="status-badge">Unknown</span>
+                </div>
+            </div>
+
+            <div class="st-card full-width">
+                <div class="st-card-header">Verification Summary</div>
+                <div class="st-card-content" id="summary-content">
+                    <p>Waiting for processing...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="loader-overlay" class="loader-overlay" style="display:none;">
+        <div class="loader"></div>
+        <p>Analyzing Security Credentials...</p>
+    </div>
+
+    <script src="static/app.js"></script>
+</body>
+
+</html>

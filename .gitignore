@@ -1,0 +1,29 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+bin/
+lib/
+include/
+setuptools*.zip
+pip-delete-this-directory.txt
+
+# Databases
+*.db
+backend/id_records.db
+
+# Uploads and temporary files
+backend/uploads/
+backend/outputs/
+*.log
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
