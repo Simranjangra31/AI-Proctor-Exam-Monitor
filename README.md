@@ -5,7 +5,7 @@ This project is a secure student exam portal that uses AI to check identities an
 Features
 
 Identity Verification
-PRN Extraction: I used EasyOCR with some image processing like grayscale and thresholding to read PRN numbers from printed ID cards.
+PRN Extraction: I used EasyOCR to read PRN numbers directly from printed ID cards for fast and reliable extraction.
 Database Check: The system checks if the PRN exists in my SQLite database.
 Photo Registration: Once verified, students take a profile photo which is used to monitor them during the exam.
 
